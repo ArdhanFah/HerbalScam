@@ -48,26 +48,49 @@ import shutil
 from google.colab import drive
 drive.mount('/content/drive')
 
-# Path ke file dataset di Google Drive atau root Colab:
-# Ganti path ini sesuai lokasi file zip kamu di Drive, contoh:
-# zip_path = '/content/drive/MyDrive/dataset_herbal.zip'
-zip_path = 'dataset_herbal.zip' 
-data_dir = 'dataset_extracted'
+# Path lokal SSD Colab (Fastest I/O)
+local_zip = 'dataset_herbal.zip'
+data_dir = '/content/dataset_extracted'
 
-if not os.path.exists(zip_path) and os.path.exists('/content/drive/MyDrive/dataset_herbal.zip'):
-    zip_path = '/content/drive/MyDrive/dataset_herbal.zip'
+# Lokasi di Google Drive (termasuk folder HerbalScan)
+possible_zips = [
+    '/content/drive/MyDrive/HerbalScan/dataset_herbal.zip',
+    '/content/drive/MyDrive/dataset_herbal.zip',
+    'dataset_herbal.zip',
+]
 
-if os.path.exists(zip_path):
-    print(f"Mengekstrak {zip_path}...")
-    with zipfile.ZipFile(zip_path, 'r') as z:
+possible_folders = [
+    '/content/drive/MyDrive/HerbalScan/dataset_extracted',
+    '/content/drive/MyDrive/dataset_extracted',
+]
+
+found_zip = next((p for p in possible_zips if os.path.exists(p)), None)
+found_folder = next((f for f in possible_folders if os.path.exists(f)), None)
+
+if found_zip:
+    print(f"🚀 Ditemukan file zip di: {found_zip}")
+    print(f"⚡ Menyalin & mengekstrak zip ke SSD Lokal Colab ({data_dir})...")
+    if found_zip != local_zip and os.path.exists(found_zip):
+        shutil.copy(found_zip, '/content/dataset_herbal.zip')
+        extract_src = '/content/dataset_herbal.zip'
+    else:
+        extract_src = local_zip
+        
+    with zipfile.ZipFile(extract_src, 'r') as z:
         z.extractall(data_dir)
-    print("Ekstraksi selesai!")
-elif os.path.exists('/content/drive/MyDrive/dataset_extracted'):
-    print("Menggunakan folder dataset langsung dari Drive...")
-    data_dir = '/content/drive/MyDrive/dataset_extracted'
+    print("✅ Ekstraksi lokal ke SSD Colab selesai!")
+
+elif found_folder:
+    print(f"🚀 Ditemukan folder dataset di: {found_folder}")
+    print(f"⚡ Menyalin folder dari Drive ke SSD Lokal Colab ({data_dir})...")
+    if os.path.exists(data_dir):
+        shutil.rmtree(data_dir)
+    shutil.copytree(found_folder, data_dir)
+    print("✅ Menyalin dataset ke SSD Lokal Colab selesai!")
+
 else:
-    print(f"WARNING: {zip_path} tidak ditemukan!")
-    print("Upload file zip dataset ke Colab / Google Drive terlebih dahulu.")
+    print("⚠️ WARNING: Dataset tidak ditemukan di Drive atau root Colab!")
+    print("Pastikan dataset_herbal.zip sudah di-upload ke Google Drive di folder /HerbalScan/ atau MyDrive/.")
 
 # --- Auto-Fix Struktur Folder (Flatten & Normalisasi nama folder) ---
 if os.path.exists(data_dir):
@@ -130,6 +153,7 @@ if not os.path.exists(bukan_herbal_dir):
 # =============================================================================
 # Augmentasi agresif + preserve aspect ratio.
 
+import time
 import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
@@ -144,9 +168,9 @@ class ResizeWithPadding:
     """
     Resize gambar agar sisi terpanjang = target_size,
     lalu pad sisi terpendek dengan warna fill_color.
-    Ini menjaga aspect ratio asli daun agar tidak terdistorsi.
+    Menjaga aspect ratio asli daun dengan performa tinggi.
     """
-    def __init__(self, target_size=224, fill_color=(0, 0, 0)):
+    def __init__(self, target_size=224, fill_color=(255, 255, 255)):
         self.target_size = target_size
         self.fill_color = fill_color
 
@@ -155,7 +179,8 @@ class ResizeWithPadding:
         scale = self.target_size / max(w, h)
         new_w = int(w * scale)
         new_h = int(h * scale)
-        img = img.resize((new_w, new_h), Image.LANCZOS)
+        # Gunakan Image.BILINEAR (4x lebih cepat dibanding LANCZOS tanpa mengurangi kualitas)
+        img = img.resize((new_w, new_h), Image.BILINEAR)
 
         # Pad ke target_size x target_size
         pad_left = (self.target_size - new_w) // 2
@@ -167,34 +192,23 @@ class ResizeWithPadding:
                       fill=self.fill_color)
         return img
 
-# --- 2b. Transformasi ---
-# Augmentation JAUH lebih agresif dari v1
+# --- 2b. Transformasi Fast & Effective ---
+# Menghapus GaussianBlur & RandomPerspective yang sangat memberatkan CPU Colab
 data_transforms = {
     'train': transforms.Compose([
-        ResizeWithPadding(target_size=224, fill_color=(255, 255, 255)),
         transforms.RandomHorizontalFlip(p=0.5),
         transforms.RandomVerticalFlip(p=0.2),
-        transforms.RandomRotation(degrees=30),
-        transforms.RandomAffine(
-            degrees=0,
-            translate=(0.1, 0.1),
-            scale=(0.85, 1.15),
-        ),
+        transforms.RandomRotation(degrees=20),
         transforms.ColorJitter(
-            brightness=0.4,
-            contrast=0.4,
-            saturation=0.4,
-            hue=0.1,
+            brightness=0.2,
+            contrast=0.2,
+            saturation=0.2,
         ),
-        transforms.RandomPerspective(distortion_scale=0.15, p=0.3),
-        transforms.RandomGrayscale(p=0.05),
-        transforms.GaussianBlur(kernel_size=3, sigma=(0.1, 2.0)),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-        transforms.RandomErasing(p=0.2, scale=(0.02, 0.15)),
+        transforms.RandomErasing(p=0.2, scale=(0.02, 0.1)),
     ]),
     'val': transforms.Compose([
-        ResizeWithPadding(target_size=224, fill_color=(255, 255, 255)),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
     ]),
@@ -223,24 +237,36 @@ for c in range(num_classes):
 
 print(f"Train: {len(train_idx)} | Val: {len(val_idx)}")
 
-# --- 2e. Buat dataset dengan transform ---
-class SubsetWithTransform(torch.utils.data.Dataset):
-    def __init__(self, dataset, indices, transform=None):
-        self.dataset = dataset
-        self.indices = indices
+# --- 2e. Fast RAM-cached Dataset (Pre-resized 224x224 agar RAM hemat < 1 GB) ---
+class RAMCachedDataset(torch.utils.data.Dataset):
+    def __init__(self, dataset, indices, transform=None, name="Dataset"):
         self.transform = transform
+        self.name = name
+        resizer = ResizeWithPadding(target_size=224, fill_color=(255, 255, 255))
+        print(f"⚡ Memuat & mempresisi {len(indices)} foto {name} ke RAM Colab...")
+        start_t = time.time()
+        
+        # Pre-resize foto ke 224x224 saat di-load ke RAM agar hemat RAM (hanya ~700 MB untuk 5200 foto)
+        self.cache = []
+        for idx in indices:
+            img, label = dataset[idx]
+            img_resized = resizer(img)  # Resize ke 224x224 sebelum disimpan di RAM
+            self.cache.append((img_resized, label))
+            
+        elapsed = time.time() - start_t
+        print(f"✅ {name} ({len(indices)} foto) hemat RAM berhasil dimuat dalam {elapsed:.2f}s!")
 
     def __getitem__(self, i):
-        img, label = self.dataset[self.indices[i]]
+        img, label = self.cache[i]
         if self.transform:
             img = self.transform(img)
         return img, label
 
     def __len__(self):
-        return len(self.indices)
+        return len(self.cache)
 
-train_dataset = SubsetWithTransform(full_dataset, train_idx, data_transforms['train'])
-val_dataset   = SubsetWithTransform(full_dataset, val_idx,   data_transforms['val'])
+train_dataset = RAMCachedDataset(full_dataset, train_idx, data_transforms['train'], name="Train")
+val_dataset   = RAMCachedDataset(full_dataset, val_idx,   data_transforms['val'],   name="Val")
 
 # --- 2f. Class-balanced sampling ---
 targets_train = [full_dataset.targets[i] for i in train_idx]
@@ -249,11 +275,11 @@ class_weights = 1.0 / (class_counts + 1e-6)  # avoid division by zero
 sample_weights = [class_weights[t] for t in targets_train]
 sampler = WeightedRandomSampler(sample_weights, len(sample_weights), replacement=True)
 
-BATCH_SIZE = 32
+BATCH_SIZE = 64  # Optimal batch size untuk GPU T4
 train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, sampler=sampler,
-                          num_workers=2, pin_memory=True)
+                          num_workers=2, pin_memory=True, persistent_workers=True)
 val_loader   = DataLoader(val_dataset,   batch_size=BATCH_SIZE, shuffle=False,
-                          num_workers=2, pin_memory=True)
+                          num_workers=2, pin_memory=True, persistent_workers=True)
 
 print(f"Loader siap! Train batches: {len(train_loader)} | Val batches: {len(val_loader)}")
 print(f"Distribusi kelas train: {dict(zip(class_names, class_counts))}")
@@ -270,12 +296,12 @@ from torchvision import models
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(f"Device: {device}")
 
-# Load MobileNetV3-Small pretrained
-model = models.mobilenet_v3_small(weights=models.MobileNet_V3_Small_Weights.DEFAULT)
+# Load MobileNetV3-Large pretrained (jauh lebih peka pada urat & tekstur daun dibanding Small)
+model = models.mobilenet_v3_large(weights=models.MobileNet_V3_Large_Weights.DEFAULT)
 
 # --- Ganti classifier head (multi-layer, lebih expressive) ---
-# MobileNetV3-Small features output: 576 dimensions
-in_features = model.classifier[0].in_features  # 576
+# MobileNetV3-Large features output: 960 dimensions
+in_features = model.classifier[0].in_features  # 960
 model.classifier = nn.Sequential(
     nn.Linear(in_features, 256),
     nn.Hardswish(inplace=True),
@@ -329,11 +355,19 @@ print(model.classifier)
 import time
 import copy
 
-# --- Konfigurasi Training ---
-PHASE1_EPOCHS = 10       # Head-only training
-PHASE2_EPOCHS = 30       # Full fine-tuning
-NUM_EPOCHS = PHASE1_EPOCHS + PHASE2_EPOCHS  # Total: 40 epochs
-MAX_PATIENCE = 10        # Early stopping patience
+# --- Konfigurasi Training (Otomatis Menyesuaikan CPU / GPU) ---
+if device.type == 'cpu':
+    print("⚡ Mode CPU Terdeteksi (Jatah GPU Colab Habis): Mengaktifkan CPU Fast Mode!")
+    torch.set_num_threads(2)
+    PHASE1_EPOCHS = 5       # Head-only training (CPU)
+    PHASE2_EPOCHS = 15      # Full fine-tuning (CPU)
+    MAX_PATIENCE = 5        # Early stopping patience responsif
+else:
+    PHASE1_EPOCHS = 10      # Head-only training (GPU)
+    PHASE2_EPOCHS = 30      # Full fine-tuning (GPU)
+    MAX_PATIENCE = 10       # Early stopping patience
+
+NUM_EPOCHS = PHASE1_EPOCHS + PHASE2_EPOCHS  # Total: 20 epochs di CPU, 40 epochs di GPU
 
 best_acc = 0.0
 best_loss = float('inf')
@@ -577,10 +611,10 @@ training_info = {
     "total_epochs": NUM_EPOCHS,
     "phase1_epochs": PHASE1_EPOCHS,
     "phase2_epochs": PHASE2_EPOCHS,
-    "model_architecture": "MobileNetV3-Small",
-    "classifier_head": "576->256->128->N",
+    "model_architecture": "MobileNetV3-Large",
+    "classifier_head": "960->256->128->N",
     "input_size": 224,
-    "preprocessing": "ResizeWithPadding(224, black)",
+    "preprocessing": "ResizeWithPadding(224, white)",
     "dataset_size": len(full_dataset),
 }
 with open('training_info.json', 'w') as f:

@@ -10,7 +10,7 @@ serviceAccountKey.json
 *.crt
 *.p12
 
-# Explicitly ignore all root .json files except catalog & class names
+# Explicitly ignore root .json files except catalog & class names
 /*.json
 !data/herbal_metadata.json
 !models/class_names.json
@@ -38,6 +38,15 @@ models/*.bin
 # Uploaded Files
 uploads/*
 !uploads/.gitkeep
+
+# ──────────────────────────────────────────────────
+# Temporary Scratch Scripts & Deprecated Code
+# ──────────────────────────────────────────────────
+test.py
+create_ipynb.py
+convert_py_to_ipynb.py
+train_yolo_colab.py
+services/yolo_service.py
 
 # ──────────────────────────────────────────────────
 # Python Cache, Environment & Logs

@@ -12,7 +12,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 METADATA_PATH = os.path.join(BASE_DIR, "data", "herbal_metadata.json")
 MODEL_PT_PATH = os.path.join(BASE_DIR, "models", "model_herbalscan.pt")
 MODEL_JIT_PATH = os.path.join(BASE_DIR, "models", "model_herbalscan_jit.pt")
-MODEL_YOLO_PATH = os.path.join(BASE_DIR, "models", "model_herbalscan_yolo.pt")
 CLASS_NAMES_JSON = os.path.join(BASE_DIR, "models", "class_names.json")
 
 # Load metadata
@@ -118,20 +117,31 @@ _MODEL_LOAD_ATTEMPTED: bool = False
 
 
 def _build_mobilenet_model(state_dict: Dict[str, Any], num_classes: int) -> Any:
-    """Builds MobileNetV3 Small matching saved state_dict architecture."""
+    """Builds MobileNetV3 (Small or Large) matching saved state_dict architecture."""
     import torch.nn as nn
     from torchvision import models
 
+    in_features = 576
+    if "classifier.0.weight" in state_dict:
+        in_features = state_dict["classifier.0.weight"].shape[1]
+
     try:
-        model = models.mobilenet_v3_small(weights=None)
+        if in_features == 960:
+            model = models.mobilenet_v3_large(weights=None)
+            print("[ML Service] Auto-detected MobileNetV3-Large architecture (960 features) ✅")
+        else:
+            model = models.mobilenet_v3_small(weights=None)
+            print(f"[ML Service] Auto-detected MobileNetV3-Small architecture ({in_features} features) ✅")
     except TypeError:
-        model = models.mobilenet_v3_small(pretrained=False)
+        if in_features == 960:
+            model = models.mobilenet_v3_large(pretrained=False)
+        else:
+            model = models.mobilenet_v3_small(pretrained=False)
 
     classifier_keys = [k for k in state_dict.keys() if k.startswith("classifier.")]
     max_layer_idx = max((int(k.split(".")[1]) for k in classifier_keys if k.split(".")[1].isdigit()), default=0)
 
     if max_layer_idx >= 6:
-        in_features = state_dict["classifier.0.weight"].shape[1]
         hidden_1 = state_dict["classifier.0.weight"].shape[0]
         hidden_2 = state_dict["classifier.3.weight"].shape[0]
         model.classifier = nn.Sequential(
@@ -248,18 +258,6 @@ def predict_leaf(image_path: str) -> Dict[str, Any]:
     Main entrypoint for leaf classification.
     Runs background removal -> TTA inference -> confidence scoring -> metadata lookup.
     """
-    # 1. Try YOLO model first (highest priority if available)
-    if os.path.exists(MODEL_YOLO_PATH):
-        try:
-            from services.yolo_service import predict_with_yolo
-            yolo_result = predict_with_yolo(image_path)
-            if yolo_result is not None:
-                return yolo_result
-            print("[ML Service] YOLO returned None, falling back to MobileNetV3...")
-        except Exception as e:
-            print(f"[ML Service] YOLO execution error ({e}), falling back to MobileNetV3...")
-
-    # 2. Fallback to MobileNetV3
     bundle = get_ml_model_bundle()
     if bundle is None:
         from services.mock_classifier import classify_leaf
