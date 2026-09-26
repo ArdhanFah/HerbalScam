@@ -330,10 +330,10 @@ function initScanPage() {
         const badge = document.getElementById('result-badge');
         if (data.is_herbal) {
             badge.className = 'result-badge herbal';
-            badge.innerHTML = '🌿 Tanaman Herbal Terdeteksi';
+            badge.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Tanaman Herbal Terdeteksi';
         } else {
             badge.className = 'result-badge not-herbal';
-            badge.innerHTML = '❌ Bukan Tanaman Herbal';
+            badge.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Bukan Tanaman Herbal';
         }
 
         // Name & Latin
@@ -398,7 +398,7 @@ function initScanPage() {
     // ── Share Result ──
     btnShare.addEventListener('click', async () => {
         const name = document.getElementById('result-name').textContent;
-        const text = `Saya baru saja mengidentifikasi tanaman "${name}" menggunakan HerbalScan! 🌿`;
+        const text = `Saya baru saja mengidentifikasi tanaman "${name}" menggunakan HerbalScan!`;
         
         if (navigator.share) {
             try {
@@ -411,7 +411,7 @@ function initScanPage() {
             try {
                 await navigator.clipboard.writeText(text + ' ' + window.location.href);
                 const original = btnShare.innerHTML;
-                btnShare.innerHTML = '<span class="btn-icon">✅</span> Tersalin!';
+                btnShare.innerHTML = 'Tersalin!';
                 setTimeout(() => { btnShare.innerHTML = original; }, 2000);
             } catch (err) {
                 alert(text);

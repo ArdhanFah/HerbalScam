@@ -17,8 +17,12 @@
             <div class="upload-section glass-card" id="upload-section">
                 <div class="upload-zone" id="upload-zone">
                     <div class="upload-zone-content" id="upload-zone-content">
-                        <div class="upload-icon-wrap">
-                            <span class="upload-icon">📤</span>
+                        <div class="upload-illustration">
+                            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="64" height="64" rx="20" fill="rgba(16, 185, 129, 0.08)" stroke="rgba(16, 185, 129, 0.2)" stroke-width="1.5"/>
+                                <path d="M22 36l10-10 10 10M32 26v18" stroke="var(--primary-500)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M44 26C47 26 49 23.5 49 20.5 49 17.5 46.5 15 43.5 15C43 12 40 9 36 9C31 9 28.5 12 28 14C26.5 13 24.5 13 23 14C20 16 19 19 20 22C17 22.5 15 25 15 28C15 31.5 18 34 21 34" stroke="var(--primary-400)" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
                         </div>
                         <h3>Drag & Drop Gambar Daun</h3>
                         <p>atau klik untuk memilih file</p>
@@ -37,7 +41,10 @@
                 </div>
 
                 <button class="btn btn-secondary btn-camera" id="btn-camera" type="button">
-                    <span class="btn-icon">📷</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                        <circle cx="12" cy="13" r="4"/>
+                    </svg>
                     Buka Kamera
                 </button>
 
@@ -46,7 +53,10 @@
                     <video id="camera-video" autoplay playsinline></video>
                     <div class="camera-controls">
                         <button class="btn btn-primary" id="btn-capture" type="button">
-                            <span class="btn-icon">📸</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                                <circle cx="12" cy="13" r="4"/>
+                            </svg>
                             Ambil Foto
                         </button>
                         <button class="btn btn-ghost" id="btn-close-camera" type="button">Tutup Kamera</button>
@@ -56,7 +66,11 @@
 
                 <!-- Submit Button -->
                 <button class="btn btn-primary btn-lg btn-submit" id="btn-submit" type="button" disabled>
-                    <span class="btn-icon">🔍</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                        <path d="M11 8v6M8 11h6"/>
+                    </svg>
                     <span class="btn-text">Analisis Daun</span>
                     <span class="btn-loader" style="display: none;">
                         <span class="spinner"></span>
@@ -124,14 +138,30 @@
                     <!-- Result Actions -->
                     <div class="result-actions">
                         <button class="btn btn-primary" id="btn-scan-again" type="button">
-                            <span class="btn-icon">🔄</span>
                             Scan Lagi
                         </button>
                         <button class="btn btn-secondary" id="btn-share" type="button">
-                            <span class="btn-icon">🔗</span>
                             Bagikan Hasil
                         </button>
                     </div>
+            </div>
+        </div>
+
+        <!-- Scanning Tips Card -->
+        <div class="scan-tips-card glass-card fade-in" style="margin-top: var(--space-8); padding: var(--space-6);">
+            <h4 style="margin: 0 0 var(--space-4) 0; font-size: var(--fs-base); font-weight: 600;">Tips Hasil Klasifikasi Terbaik:</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); font-size: var(--fs-sm); color: var(--text-secondary);">
+                <div style="display: flex; align-items: center; gap: var(--space-3);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                    <span>Pencahayaan terang & merata</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: var(--space-3);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="var(--primary-500)"/></svg>
+                    <span>Posisikan 1 helai daun di tengah</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: var(--space-3);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+                    <span>Pastikan pola & urat daun jelas</span>
                 </div>
             </div>
         </div>
@@ -145,7 +175,7 @@
             <div class="scan-ring-anim ring-1"></div>
             <div class="scan-ring-anim ring-2"></div>
             <div class="scan-ring-anim ring-3"></div>
-            <span class="scan-center-icon">🌿</span>
+            <div class="scan-center-dot"></div>
         </div>
         <p class="scanning-text">Menganalisis daun...</p>
         <p class="scanning-subtext">AI sedang memproses gambar Anda</p>

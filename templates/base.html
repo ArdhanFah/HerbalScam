@@ -28,7 +28,23 @@
     <nav class="nav-glass" id="navbar">
         <div class="nav-container">
             <a href="{{ url_for('index') }}" class="nav-logo" id="nav-logo">
-                <span class="logo-icon">🌿</span>
+                <div class="logo-emblem">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logoGrad1" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#10B981" />
+                                <stop offset="100%" stop-color="#059669" />
+                            </linearGradient>
+                            <linearGradient id="logoGrad2" x1="32" y1="0" x2="0" y2="32" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#34D399" />
+                                <stop offset="100%" stop-color="#10B981" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M16 2C8.268 2 2 8.268 2 16c0 6.186 4.008 11.435 9.58 13.25C11.205 28.32 11 27.18 11 26c0-7.732 6.268-14 14-14 1.18 0 2.32.205 3.25.58C26.435 7.008 21.186 3 15 3z" fill="url(#logoGrad1)" opacity="0.9"/>
+                        <path d="M16 30c7.732 0 14-6.268 14-14 0-1.18-.205-2.32-.58-3.25C27.592 14.58 22.343 16 17 16c-7.732 0-14 6.268-14 14 0 1.18.205 2.32.58 3.25C5.408 31.592 10.657 30 16 30z" fill="url(#logoGrad2)"/>
+                        <circle cx="16" cy="16" r="3.5" fill="#FFFFFF"/>
+                    </svg>
+                </div>
                 <span class="logo-text">Herbal<span class="logo-accent">Scan</span></span>
             </a>
 
@@ -42,8 +58,14 @@
                 <li><a href="{{ url_for('about') }}" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">Tentang</a></li>
                 <li>
                     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-                        <span class="theme-icon-sun">☀️</span>
-                        <span class="theme-icon-moon">🌙</span>
+                        <svg class="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="var(--primary-400)"/>
+                        </svg>
+                        <svg class="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="5" fill="#F59E0B"/>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span class="theme-label">Mode</span>
                     </button>
                 </li>
             </ul>
@@ -72,7 +94,13 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <span class="logo-icon">🌿</span>
+                    <div class="logo-emblem" style="margin-bottom: var(--space-3);">
+                        <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+                            <path d="M16 2C8.268 2 2 8.268 2 16c0 6.186 4.008 11.435 9.58 13.25C11.205 28.32 11 27.18 11 26c0-7.732 6.268-14 14-14 1.18 0 2.32.205 3.25.58C26.435 7.008 21.186 3 15 3z" fill="url(#logoGrad1)" opacity="0.9"/>
+                            <path d="M16 30c7.732 0 14-6.268 14-14 0-1.18-.205-2.32-.58-3.25C27.592 14.58 22.343 16 17 16c-7.732 0-14 6.268-14 14 0 1.18.205 2.32.58 3.25C5.408 31.592 10.657 30 16 30z" fill="url(#logoGrad2)"/>
+                            <circle cx="16" cy="16" r="3.5" fill="#FFFFFF"/>
+                        </svg>
+                    </div>
                     <span class="logo-text">Herbal<span class="logo-accent">Scan</span></span>
                     <p class="footer-tagline">Teknologi AI untuk mengenali tanaman herbal Indonesia.</p>
                 </div>
@@ -94,7 +122,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 HerbalScan. Dibuat dengan 💚 untuk Indonesia.</p>
+                <p>&copy; 2024 HerbalScan. Dibuat untuk Indonesia.</p>
             </div>
         </div>
     </footer>

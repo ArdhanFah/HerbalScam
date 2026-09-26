@@ -4,15 +4,28 @@
 {% block meta_description %}HerbalScan menggunakan teknologi AI untuk mengidentifikasi daun herbal Indonesia. Upload foto daun dan kenali khasiatnya secara instan.{% endblock %}
 
 {% block content %}
+<svg style="display: none;">
+    <defs>
+        <linearGradient id="featGrad1" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#10B981"/>
+            <stop offset="100%" stop-color="#059669"/>
+        </linearGradient>
+        <linearGradient id="featGrad2" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#3B82F6"/>
+            <stop offset="100%" stop-color="#1D4ED8"/>
+        </linearGradient>
+        <linearGradient id="featGrad3" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#8B5CF6"/>
+            <stop offset="100%" stop-color="#6D28D9"/>
+        </linearGradient>
+    </defs>
+</svg>
+
 <!-- ═══════════════ HERO SECTION ═══════════════ -->
 <section class="hero" id="hero">
     <div class="hero-bg-animation">
-        <div class="floating-leaf leaf-1">🍃</div>
-        <div class="floating-leaf leaf-2">🌿</div>
-        <div class="floating-leaf leaf-3">🍀</div>
-        <div class="floating-leaf leaf-4">🌱</div>
-        <div class="floating-leaf leaf-5">🍃</div>
-        <div class="floating-leaf leaf-6">🌿</div>
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
     </div>
     <div class="container hero-container">
         <div class="hero-content">
@@ -28,7 +41,6 @@
             </p>
             <div class="hero-actions fade-in">
                 <a href="{{ url_for('scan') }}" class="btn btn-primary btn-lg" id="hero-cta">
-                    <span class="btn-icon">📷</span>
                     Mulai Scan
                 </a>
                 <a href="#features" class="btn btn-ghost btn-lg" id="hero-learn-more">
@@ -40,13 +52,28 @@
         <div class="hero-visual fade-in">
             <div class="hero-phone-mockup">
                 <div class="phone-screen">
-                    <div class="scan-preview-demo">
-                        <div class="scan-ring ring-1"></div>
-                        <div class="scan-ring ring-2"></div>
-                        <div class="scan-ring ring-3"></div>
-                        <span class="scan-leaf-icon">🌿</span>
+                    <div class="scan-hud-container">
+                        <svg class="scan-hud-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="hudGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#10B981"/>
+                                    <stop offset="100%" stop-color="#059669"/>
+                                </linearGradient>
+                                <radialGradient id="hudGlow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#10B981" stop-opacity="0.3"/>
+                                    <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+                                </radialGradient>
+                            </defs>
+                            <circle cx="100" cy="100" r="90" fill="url(#hudGlow)"/>
+                            <circle cx="100" cy="100" r="75" stroke="url(#hudGrad)" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.6"/>
+                            <circle cx="100" cy="100" r="55" stroke="#10B981" stroke-width="2" opacity="0.8"/>
+                            <path d="M100 45C75 45 60 70 60 100c0 30 25 45 40 55 15-10 40-25 40-55 0-30-15-55-40-55z" fill="url(#hudGrad)" opacity="0.25"/>
+                            <path d="M100 45C75 45 60 70 60 100c0 30 25 45 40 55 15-10 40-25 40-55 0-30-15-55-40-55z" stroke="#10B981" stroke-width="2.5"/>
+                            <path d="M100 50v100M100 90l25-20M100 115l-20-15M100 130l20-15" stroke="#34D399" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M40 60V40h20M160 60V40h-20M40 140v20h20M160 140v-20h-20" stroke="#10B981" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
                     </div>
-                    <div class="scan-label">Scanning...</div>
+                    <div class="scan-label">SCANNING DAUN...</div>
                 </div>
             </div>
         </div>
@@ -68,22 +95,34 @@
         </div>
         <div class="features-grid">
             <div class="feature-card glass-card fade-in" id="feature-fast">
-                <div class="feature-icon-wrap">
-                    <span class="feature-icon">⚡</span>
+                <div class="custom-svg-wrapper">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <rect width="48" height="48" rx="14" fill="url(#featGrad1)"/>
+                        <path d="M26 10L14 26h10l-2 12 12-16H24l2-12z" fill="#FFFFFF" stroke="#065F46" stroke-width="1.5" stroke-linejoin="round"/>
+                    </svg>
                 </div>
                 <h3 class="feature-title">Scan Cepat</h3>
                 <p class="feature-desc">Hasil identifikasi dalam hitungan detik. Cukup foto atau upload gambar daun.</p>
             </div>
             <div class="feature-card glass-card fade-in" id="feature-accurate">
-                <div class="feature-icon-wrap">
-                    <span class="feature-icon">🎯</span>
+                <div class="custom-svg-wrapper">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <rect width="48" height="48" rx="14" fill="url(#featGrad2)"/>
+                        <circle cx="24" cy="24" r="13" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="4 3"/>
+                        <circle cx="24" cy="24" r="7" stroke="#FFFFFF" stroke-width="2"/>
+                        <circle cx="24" cy="24" r="3" fill="#FFFFFF"/>
+                    </svg>
                 </div>
                 <h3 class="feature-title">Akurasi Tinggi</h3>
                 <p class="feature-desc">Model AI terlatih dengan ribuan data untuk memberikan hasil klasifikasi yang akurat.</p>
             </div>
             <div class="feature-card glass-card fade-in" id="feature-database">
-                <div class="feature-icon-wrap">
-                    <span class="feature-icon">📚</span>
+                <div class="custom-svg-wrapper">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <rect width="48" height="48" rx="14" fill="url(#featGrad3)"/>
+                        <path d="M14 14c0-2 2-4 4-4h20v26H18c-2 0-4-2-4-4V14z" fill="#FFFFFF" opacity="0.9"/>
+                        <path d="M20 18h12M20 24h10M20 30h6" stroke="#4C1D95" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                 </div>
                 <h3 class="feature-title">Database Lengkap</h3>
                 <p class="feature-desc">Informasi detail tentang khasiat, nama latin, dan cara penggunaan tanaman herbal.</p>
@@ -102,27 +141,45 @@
         </div>
         <div class="steps-timeline">
             <div class="step-item fade-in" id="step-1">
-                <div class="step-number">1</div>
+                <div class="step-illustration">
+                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+                        <rect width="56" height="56" rx="16" fill="var(--bg-tertiary)" stroke="var(--border-color)"/>
+                        <path d="M16 22a4 4 0 014-4h4l2-3h8l2 3h4a4 4 0 014 4v16a4 4 0 01-4 4H20a4 4 0 01-4-4V22z" stroke="var(--primary-400)" stroke-width="2"/>
+                        <circle cx="28" cy="30" r="6" stroke="var(--primary-400)" stroke-width="2"/>
+                    </svg>
+                </div>
                 <div class="step-content glass-card">
-                    <div class="step-icon">📷</div>
+                    <span class="step-number-tag">Langkah 01</span>
                     <h3>Upload atau Foto</h3>
                     <p>Ambil foto daun menggunakan kamera atau upload gambar dari galeri perangkat Anda.</p>
                 </div>
             </div>
             <div class="step-connector"></div>
             <div class="step-item fade-in" id="step-2">
-                <div class="step-number">2</div>
+                <div class="step-illustration">
+                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+                        <rect width="56" height="56" rx="16" fill="var(--bg-tertiary)" stroke="var(--border-color)"/>
+                        <rect x="18" y="18" width="20" height="20" rx="4" stroke="var(--primary-400)" stroke-width="2"/>
+                        <path d="M28 14v4M28 38v4M14 28h4M38 28h4M22 22l3 3M31 31l3 3" stroke="var(--primary-400)" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
                 <div class="step-content glass-card">
-                    <div class="step-icon">🤖</div>
+                    <span class="step-number-tag">Langkah 02</span>
                     <h3>Analisis AI</h3>
                     <p>Model Machine Learning kami akan menganalisis gambar dan mengidentifikasi jenis daunnya.</p>
                 </div>
             </div>
             <div class="step-connector"></div>
             <div class="step-item fade-in" id="step-3">
-                <div class="step-number">3</div>
+                <div class="step-illustration">
+                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+                        <rect width="56" height="56" rx="16" fill="var(--bg-tertiary)" stroke="var(--border-color)"/>
+                        <path d="M18 16h20v24H18z" stroke="var(--primary-400)" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M24 24h8M24 30h12M24 34h6" stroke="var(--primary-400)" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
                 <div class="step-content glass-card">
-                    <div class="step-icon">✅</div>
+                    <span class="step-number-tag">Langkah 03</span>
                     <h3>Lihat Hasil</h3>
                     <p>Dapatkan informasi lengkap: nama tanaman, khasiat, dan cara penggunaannya.</p>
                 </div>
@@ -166,7 +223,6 @@
             <h2 class="cta-title">Siap Mengenali Tanaman Herbal?</h2>
             <p class="cta-subtitle">Mulai scan daun pertamamu sekarang — gratis dan tanpa registrasi.</p>
             <a href="{{ url_for('scan') }}" class="btn btn-primary btn-lg" id="cta-button">
-                <span class="btn-icon">🌿</span>
                 Mulai Scan Sekarang
             </a>
         </div>
