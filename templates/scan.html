@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}Scan Daun — HerbalScan{% endblock %}
+{% block meta_description %}Upload atau foto daun untuk mengidentifikasi apakah itu tanaman herbal. Dapatkan hasil klasifikasi AI secara instan.{% endblock %}
+
+{% block content %}
+<section class="scan-page" id="scan-page">
+    <div class="container">
+        <div class="section-header fade-in">
+            <span class="section-tag">AI Scanner</span>
+            <h1 class="section-title">Scan <span class="gradient-text">Daun Herbal</span></h1>
+            <p class="section-subtitle">Upload gambar daun atau gunakan kamera untuk mengidentifikasi tanaman herbal.</p>
+        </div>
+
+        <div class="scan-container fade-in">
+            <!-- Upload Area -->
+            <div class="upload-section glass-card" id="upload-section">
+                <div class="upload-zone" id="upload-zone">
+                    <div class="upload-zone-content" id="upload-zone-content">
+                        <div class="upload-icon-wrap">
+                            <span class="upload-icon">📤</span>
+                        </div>
+                        <h3>Drag & Drop Gambar Daun</h3>
+                        <p>atau klik untuk memilih file</p>
+                        <span class="upload-formats">Mendukung: JPG, PNG, WebP (max 16MB)</span>
+                    </div>
+                    <div class="upload-preview" id="upload-preview" style="display: none;">
+                        <img id="preview-image" src="" alt="Preview">
+                        <button class="btn-remove-preview" id="btn-remove-preview" type="button" aria-label="Remove image">✕</button>
+                    </div>
+                    <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" hidden>
+                </div>
+
+                <!-- Camera capture -->
+                <div class="upload-divider">
+                    <span>atau</span>
+                </div>
+
+                <button class="btn btn-secondary btn-camera" id="btn-camera" type="button">
+                    <span class="btn-icon">📷</span>
+                    Buka Kamera
+                </button>
+
+                <!-- Camera view (hidden by default) -->
+                <div class="camera-section" id="camera-section" style="display: none;">
+                    <video id="camera-video" autoplay playsinline></video>
+                    <div class="camera-controls">
+                        <button class="btn btn-primary" id="btn-capture" type="button">
+                            <span class="btn-icon">📸</span>
+                            Ambil Foto
+                        </button>
+                        <button class="btn btn-ghost" id="btn-close-camera" type="button">Tutup Kamera</button>
+                    </div>
+                    <canvas id="camera-canvas" style="display: none;"></canvas>
+                </div>
+
+                <!-- Submit Button -->
+                <button class="btn btn-primary btn-lg btn-submit" id="btn-submit" type="button" disabled>
+                    <span class="btn-icon">🔍</span>
+                    <span class="btn-text">Analisis Daun</span>
+                    <span class="btn-loader" style="display: none;">
+                        <span class="spinner"></span>
+                        Menganalisis...
+                    </span>
+                </button>
+            </div>
+
+            <!-- Result Area (shown after classification) -->
+            <div class="result-section" id="result-section" style="display: none;">
+                <div class="result-card glass-card" id="result-card">
+                    <!-- Result Header -->
+                    <div class="result-header" id="result-header">
+                        <div class="result-badge" id="result-badge">
+                            <!-- Dynamically filled -->
+                        </div>
+                        <h2 class="result-name" id="result-name"></h2>
+                        <p class="result-latin" id="result-latin"></p>
+                    </div>
+
+                    <!-- Result Body -->
+                    <div class="result-body">
+                        <div class="result-image-col">
+                            <div class="result-image-frame">
+                                <img id="result-image" src="" alt="Scanned leaf">
+                            </div>
+                        </div>
+                        <div class="result-info-col">
+                            <!-- Confidence -->
+                            <div class="result-confidence" id="result-confidence-section">
+                                <h4>Tingkat Kepercayaan</h4>
+                                <div class="confidence-bar-wrap">
+                                    <div class="confidence-bar" id="confidence-bar">
+                                        <span class="confidence-value" id="confidence-value">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="result-detail" id="result-description-section">
+                                <h4>Deskripsi</h4>
+                                <p id="result-description"></p>
+                            </div>
+
+                            <!-- Family -->
+                            <div class="result-detail" id="result-family-section">
+                                <h4>Famili</h4>
+                                <p id="result-family"></p>
+                            </div>
+
+                            <!-- Benefits -->
+                            <div class="result-detail" id="result-benefits-section">
+                                <h4>Khasiat & Manfaat</h4>
+                                <ul class="benefits-list" id="result-benefits"></ul>
+                            </div>
+
+                            <!-- Usage -->
+                            <div class="result-detail" id="result-usage-section">
+                                <h4>Cara Penggunaan</h4>
+                                <p id="result-usage"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result Actions -->
+                    <div class="result-actions">
+                        <button class="btn btn-primary" id="btn-scan-again" type="button">
+                            <span class="btn-icon">🔄</span>
+                            Scan Lagi
+                        </button>
+                        <button class="btn btn-secondary" id="btn-share" type="button">
+                            <span class="btn-icon">🔗</span>
+                            Bagikan Hasil
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Scanning overlay -->
+<div class="scanning-overlay" id="scanning-overlay" style="display: none;">
+    <div class="scanning-content">
+        <div class="scanning-animation">
+            <div class="scan-ring-anim ring-1"></div>
+            <div class="scan-ring-anim ring-2"></div>
+            <div class="scan-ring-anim ring-3"></div>
+            <span class="scan-center-icon">🌿</span>
+        </div>
+        <p class="scanning-text">Menganalisis daun...</p>
+        <p class="scanning-subtext">AI sedang memproses gambar Anda</p>
+    </div>
+</div>
+{% endblock %}

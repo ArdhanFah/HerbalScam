@@ -1,0 +1,60 @@
+# ──────────────────────────────────────────────────
+# Firebase Credentials, Keys & Secrets (CRITICAL)
+# ──────────────────────────────────────────────────
+serviceAccountKey.json
+*serviceAccount*.json
+*credential*.json
+*secret*.json
+*.pem
+*.key
+*.crt
+*.p12
+
+# Explicitly ignore all root .json files except catalog & class names
+/*.json
+!data/herbal_metadata.json
+!models/class_names.json
+
+# Environment Variables
+.env
+.env.*
+*.env
+
+# ──────────────────────────────────────────────────
+# Datasets & Heavy ML Model Weights
+# ──────────────────────────────────────────────────
+bukan_herbal_dataset/
+*.zip
+*.tar.gz
+*.tgz
+
+models/*.pt
+models/*.pth
+models/*.onnx
+models/*.h5
+models/*.tflite
+models/*.bin
+
+# Uploaded Files
+uploads/*
+!uploads/.gitkeep
+
+# ──────────────────────────────────────────────────
+# Python Cache, Environment & Logs
+# ──────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+ENV/
+*.log
+
+# ──────────────────────────────────────────────────
+# IDE & OS Files
+# ──────────────────────────────────────────────────
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

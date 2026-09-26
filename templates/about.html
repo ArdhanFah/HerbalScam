@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Tentang — HerbalScan{% endblock %}
+{% block meta_description %}Pelajari tentang HerbalScan, platform AI untuk klasifikasi tanaman herbal Indonesia. Dibuat untuk melestarikan pengetahuan herbal Nusantara.{% endblock %}
+
+{% block content %}
+<section class="about-page" id="about-page">
+    <div class="container">
+        <div class="section-header fade-in">
+            <span class="section-tag">Tentang Kami</span>
+            <h1 class="section-title">Tentang <span class="gradient-text">HerbalScan</span></h1>
+            <p class="section-subtitle">Melestarikan pengetahuan herbal Nusantara dengan teknologi modern.</p>
+        </div>
+
+        <!-- Mission Section -->
+        <div class="about-grid fade-in">
+            <div class="about-card glass-card" id="about-mission">
+                <div class="about-card-icon">🎯</div>
+                <h3>Misi Kami</h3>
+                <p>HerbalScan hadir untuk menjembatani pengetahuan tradisional tentang tanaman herbal Indonesia dengan teknologi kecerdasan buatan. Kami percaya bahwa warisan pengetahuan herbal Nusantara perlu dilestarikan dan dibuat mudah diakses oleh semua orang.</p>
+            </div>
+            <div class="about-card glass-card" id="about-vision">
+                <div class="about-card-icon">🔭</div>
+                <h3>Visi Kami</h3>
+                <p>Menjadi platform terdepan dalam identifikasi tanaman herbal Indonesia, membantu masyarakat mengenali dan memanfaatkan tanaman obat di sekitar mereka dengan bantuan teknologi AI yang akurat dan mudah digunakan.</p>
+            </div>
+        </div>
+
+        <!-- Technology Section -->
+        <div class="about-tech fade-in">
+            <h2 class="section-title">Teknologi yang <span class="gradient-text">Kami Gunakan</span></h2>
+            <div class="tech-grid">
+                <div class="tech-item glass-card" id="tech-ml">
+                    <span class="tech-icon">🤖</span>
+                    <h4>Machine Learning</h4>
+                    <p>Model deep learning yang terlatih untuk mengenali berbagai jenis daun herbal dengan akurasi tinggi.</p>
+                </div>
+                <div class="tech-item glass-card" id="tech-cv">
+                    <span class="tech-icon">👁️</span>
+                    <h4>Computer Vision</h4>
+                    <p>Teknologi pengenalan gambar untuk menganalisis bentuk, warna, dan tekstur daun secara detail.</p>
+                </div>
+                <div class="tech-item glass-card" id="tech-flask">
+                    <span class="tech-icon">🐍</span>
+                    <h4>Python Flask</h4>
+                    <p>Backend yang ringan dan powerful, memastikan respon cepat dan pengalaman pengguna yang smooth.</p>
+                </div>
+                <div class="tech-item glass-card" id="tech-responsive">
+                    <span class="tech-icon">📱</span>
+                    <h4>Responsive Design</h4>
+                    <p>Desain yang optimal di semua perangkat — desktop, tablet, maupun smartphone.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Section -->
+        <div class="about-team fade-in">
+            <h2 class="section-title">Tim <span class="gradient-text">Pengembang</span></h2>
+            <div class="team-grid">
+                <div class="team-card glass-card" id="team-dev">
+                    <div class="team-avatar">👨‍💻</div>
+                    <h4>Developer</h4>
+                    <p>Full-stack developer yang passionate dengan AI dan tanaman herbal Indonesia.</p>
+                </div>
+                <div class="team-card glass-card" id="team-researcher">
+                    <div class="team-avatar">🔬</div>
+                    <h4>Researcher</h4>
+                    <p>Machine learning researcher yang fokus pada computer vision dan klasifikasi gambar.</p>
+                </div>
+                <div class="team-card glass-card" id="team-botanist">
+                    <div class="team-avatar">🌱</div>
+                    <h4>Botanist</h4>
+                    <p>Ahli botani yang membantu kurasi database tanaman herbal dan validasi data.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="about-cta fade-in">
+            <div class="cta-card glass-card">
+                <h2>Tertarik Berkontribusi?</h2>
+                <p>HerbalScan adalah proyek open-source. Kami menyambut kontribusi dari siapa saja yang ingin ikut melestarikan pengetahuan herbal Indonesia.</p>
+                <a href="{{ url_for('scan') }}" class="btn btn-primary btn-lg">
+                    <span class="btn-icon">🌿</span>
+                    Coba HerbalScan
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

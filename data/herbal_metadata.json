@@ -1,0 +1,150 @@
+{
+  "belimbing_wuluh": {
+    "name": "Belimbing Wuluh",
+    "latin_name": "Averrhoa bilimbi",
+    "family": "Oxalidaceae",
+    "is_herbal": true,
+    "description": "Daun belimbing wuluh terkenal dalam pengobatan tradisional untuk mengobati penyakit batuk dan meredakan demam.",
+    "benefits": [
+      "Mengobati batuk dan flu",
+      "Menurunkan tekanan darah tinggi",
+      "Meredakan nyeri rematik",
+      "Anti-bakteri alami"
+    ],
+    "usage": "Daun direbus dengan air dan diminum hangat, atau ditumbuk halus untuk dioleskan pada bagian yang pegal."
+  },
+  "jambu_biji": {
+    "name": "Jambu Biji",
+    "latin_name": "Psidium guajava",
+    "family": "Myrtaceae",
+    "is_herbal": true,
+    "description": "Daun jambu biji kaya akan tannin dan flavonoid, sangat efektif sebagai obat diare alami dan mempercepat penyembuhan luka.",
+    "benefits": [
+      "Obat herbal diare dan gangguan pencernaan",
+      "Meningkatkan kadar trombosit saat DBD",
+      "Menjaga kesehatan mulut dan gusi",
+      "Kaya antioksidan"
+    ],
+    "usage": "Rebus beberapa lembar daun jambu biji yang masih muda, saring dan minum air rebusannya."
+  },
+  "jeruk_nipis": {
+    "name": "Jeruk Nipis",
+    "latin_name": "Citrus aurantiifolia",
+    "family": "Rutaceae",
+    "is_herbal": true,
+    "description": "Daun jeruk nipis mengandung minyak atsiri beraroma segar yang berfungsi sebagai antiseptik dan pelancar pernapasan.",
+    "benefits": [
+      "Meredakan flu dan hidung tersumbat",
+      "Menghilangkan bau badan",
+      "Anti-bakteri dan antiseptik",
+      "Memberikan efek relaksasi"
+    ],
+    "usage": "Direbus untuk dihirup uap aromanya atau dicampurkan dalam air mandi herbal."
+  },
+  "kemangi": {
+    "name": "Kemangi",
+    "latin_name": "Ocimum basilicum",
+    "family": "Lamiaceae",
+    "is_herbal": true,
+    "description": "Kemangi adalah tumbuhan aromatik yang sering dikonsumsi sebagai lalapan dan kaya akan zat antioksidan serta minyak atsiri.",
+    "benefits": [
+      "Menghilangkan bau mulut dan bau badan",
+      "Menjaga kesehatan jantung",
+      "Meredakan stres dan kecemasan",
+      "Mengatasi bau tak sedap"
+    ],
+    "usage": "Dikonsumsi langsung sebagai lalapan segar atau diseduh sebagai teh kemangi."
+  },
+  "lidah_buaya": {
+    "name": "Lidah Buaya",
+    "latin_name": "Aloe vera",
+    "family": "Asphodelaceae",
+    "is_herbal": true,
+    "description": "Lidah buaya adalah tanaman sukulen yang kaya akan gel bening dengan berbagai manfaat kesehatan dan kecantikan.",
+    "benefits": [
+      "Melembapkan dan menyehatkan kulit",
+      "Mempercepat penyembuhan luka bakar",
+      "Menyehatkan akar rambut"
+    ],
+    "usage": "Gel dioleskan langsung ke kulit atau dicampurkan dalam minuman penyegar."
+  },
+  "nangka": {
+    "name": "Nangka",
+    "latin_name": "Artocarpus heterophyllus",
+    "family": "Moraceae",
+    "is_herbal": true,
+    "description": "Daun nangka mengandung senyawa flavonoid dan kurkuminoid yang membantu mengontrol kadar gula darah dan menyembuhkan luka.",
+    "benefits": [
+      "Membantu mengontrol gula darah (diabetes)",
+      "Mempercepat penyembuhan luka luar",
+      "Anti-oksidan alami",
+      "Meningkatkan imunitas"
+    ],
+    "usage": "Daun tua direbus dan diminum airnya, atau daun ditumbuk halus untuk dioleskan pada borok/luka."
+  },
+  "pandan": {
+    "name": "Pandan",
+    "latin_name": "Pandanus amaryllifolius",
+    "family": "Pandanaceae",
+    "is_herbal": true,
+    "description": "Daun pandan terkenal dengan aroma wangi yang khas, biasa digunakan sebagai pewangi makanan dan penurun asam urat alami.",
+    "benefits": [
+      "Menurunkan kadar asam urat",
+      "Meredakan gelisah dan insomnia",
+      "Penurun tekanan darah tinggi",
+      "Aromaterapi alami"
+    ],
+    "usage": "Direbus bersama air dan diminum hangat-hangat sebagai teh pandan alami."
+  },
+  "pepaya": {
+    "name": "Pepaya",
+    "latin_name": "Carica papaya",
+    "family": "Caricaceae",
+    "is_herbal": true,
+    "description": "Meskipun rasanya pahit, daun pepaya kaya akan enzim papain yang sangat baik untuk pencernaan dan obat demam berdarah.",
+    "benefits": [
+      "Meningkatkan jumlah trombosit darah",
+      "Melancarkan pencernaan (enzim papain)",
+      "Meningkatkan nafsu makan",
+      "Anti-malaria dan anti-bakteri"
+    ],
+    "usage": "Dijuice atau direbus lalu diminum airnya, atau diolah menjadi masakan jamu."
+  },
+  "seledri": {
+    "name": "Seledri",
+    "latin_name": "Apium graveolens",
+    "family": "Apiaceae",
+    "is_herbal": true,
+    "description": "Seledri adalah daun herbal yang kaya akan apigenin, dikenal luas efektif untuk menurunkan hipertensi dan menjaga ginjal.",
+    "benefits": [
+      "Menurunkan tekanan darah tinggi (hipertensi)",
+      "Menjaga kesehatan ginjal",
+      "Menurunkan kadar kolesterol",
+      "Diuretik alami"
+    ],
+    "usage": "Dijuice murni, diseduh sebagai teh, atau dijadikan taburan masakan sehat."
+  },
+  "sirih": {
+    "name": "Sirih",
+    "latin_name": "Piper betle",
+    "family": "Piperaceae",
+    "is_herbal": true,
+    "description": "Sirih adalah tanaman merambat yang daunnya telah digunakan dalam tradisi pengobatan Nusantara sebagai antiseptik kuat.",
+    "benefits": [
+      "Antiseptik dan anti-bakteri alami",
+      "Menjaga kesehatan mulut dan gigi",
+      "Menghentikan mimisan",
+      "Mengurangi gatal-gatal"
+    ],
+    "usage": "Daun direbus untuk air kumur, atau digulung dan dimasukkan ke hidung saat mimisan."
+  },
+  "bukan_herbal": {
+    "name": "Bukan Tanaman Herbal",
+    "latin_name": "-",
+    "family": "-",
+    "is_herbal": false,
+    "description": "Sistem mendeteksi bahwa objek dalam foto bukan merupakan tanaman herbal yang terdaftar dalam database kami.",
+    "benefits": [],
+    "usage": "Pastikan Anda mengambil foto daun dengan fokus jelas dan pencahayaan yang cukup."
+  }
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}HerbalScan — Klasifikasi Daun Herbal dengan AI{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}HerbalScan menggunakan teknologi AI untuk mengidentifikasi dan mengklasifikasi daun herbal Indonesia. Upload atau foto daun dan kenali khasiatnya secara instan.{% endblock %}">
+    <meta name="keywords" content="herbal, daun herbal, klasifikasi tanaman, AI, machine learning, tanaman obat, jamu, Indonesia">
+    <meta name="author" content="HerbalScan Team">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="HerbalScan — Klasifikasi Daun Herbal dengan AI">
+    <meta property="og:description" content="Identifikasi daun herbal Indonesia secara instan menggunakan teknologi AI.">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- ═══════════════ NAVBAR ═══════════════ -->
+    <nav class="nav-glass" id="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="nav-logo" id="nav-logo">
+                <span class="logo-icon">🌿</span>
+                <span class="logo-text">Herbal<span class="logo-accent">Scan</span></span>
+            </a>
+
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="{{ url_for('index') }}" class="nav-link {% if request.endpoint == 'index' %}active{% endif %}">Beranda</a></li>
+                <li><a href="{{ url_for('scan') }}" class="nav-link {% if request.endpoint == 'scan' %}active{% endif %}">Scan Daun</a></li>
+                <li><a href="{{ url_for('about') }}" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">Tentang</a></li>
+                <li>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                        <span class="theme-icon-sun">☀️</span>
+                        <span class="theme-icon-moon">🌙</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+    <main class="main-content" id="main-content">
+        {% if error_code is defined and error_code %}
+        <section class="error-page">
+            <div class="container">
+                <div class="error-content glass-card">
+                    <h1 class="error-code">{{ error_code }}</h1>
+                    <p class="error-message">{{ error_message }}</p>
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">Kembali ke Beranda</a>
+                </div>
+            </div>
+        </section>
+        {% else %}
+            {% block content %}{% endblock %}
+        {% endif %}
+    </main>
+
+    <!-- ═══════════════ FOOTER ═══════════════ -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="logo-icon">🌿</span>
+                    <span class="logo-text">Herbal<span class="logo-accent">Scan</span></span>
+                    <p class="footer-tagline">Teknologi AI untuk mengenali tanaman herbal Indonesia.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navigasi</h4>
+                    <ul>
+                        <li><a href="{{ url_for('index') }}">Beranda</a></li>
+                        <li><a href="{{ url_for('scan') }}">Scan Daun</a></li>
+                        <li><a href="{{ url_for('about') }}">Tentang</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Teknologi</h4>
+                    <ul>
+                        <li><a href="#">Machine Learning</a></li>
+                        <li><a href="#">Computer Vision</a></li>
+                        <li><a href="#">Python Flask</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 HerbalScan. Dibuat dengan 💚 untuk Indonesia.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

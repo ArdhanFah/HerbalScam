@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}HerbalScan — Klasifikasi Daun Herbal dengan AI{% endblock %}
+{% block meta_description %}HerbalScan menggunakan teknologi AI untuk mengidentifikasi daun herbal Indonesia. Upload foto daun dan kenali khasiatnya secara instan.{% endblock %}
+
+{% block content %}
+<!-- ═══════════════ HERO SECTION ═══════════════ -->
+<section class="hero" id="hero">
+    <div class="hero-bg-animation">
+        <div class="floating-leaf leaf-1">🍃</div>
+        <div class="floating-leaf leaf-2">🌿</div>
+        <div class="floating-leaf leaf-3">🍀</div>
+        <div class="floating-leaf leaf-4">🌱</div>
+        <div class="floating-leaf leaf-5">🍃</div>
+        <div class="floating-leaf leaf-6">🌿</div>
+    </div>
+    <div class="container hero-container">
+        <div class="hero-content">
+            <div class="hero-badge fade-in">
+                <span class="badge-dot"></span>
+                AI-Powered Classification
+            </div>
+            <h1 class="hero-title fade-in">
+                Kenali <span class="gradient-text">Daun Herbal</span> dengan Kecerdasan Buatan
+            </h1>
+            <p class="hero-subtitle fade-in">
+                Foto atau upload gambar daun, dan biarkan AI kami mengidentifikasi apakah itu tanaman herbal beserta manfaat kesehatannya.
+            </p>
+            <div class="hero-actions fade-in">
+                <a href="{{ url_for('scan') }}" class="btn btn-primary btn-lg" id="hero-cta">
+                    <span class="btn-icon">📷</span>
+                    Mulai Scan
+                </a>
+                <a href="#features" class="btn btn-ghost btn-lg" id="hero-learn-more">
+                    Pelajari Lebih Lanjut
+                    <span class="btn-arrow">→</span>
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual fade-in">
+            <div class="hero-phone-mockup">
+                <div class="phone-screen">
+                    <div class="scan-preview-demo">
+                        <div class="scan-ring ring-1"></div>
+                        <div class="scan-ring ring-2"></div>
+                        <div class="scan-ring ring-3"></div>
+                        <span class="scan-leaf-icon">🌿</span>
+                    </div>
+                    <div class="scan-label">Scanning...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-wave">
+        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M0 60L48 55C96 50 192 40 288 42C384 44 480 58 576 65C672 72 768 72 864 65C960 58 1056 44 1152 40C1248 36 1344 42 1392 45L1440 48V120H1392C1344 120 1248 120 1152 120C1056 120 960 120 864 120C768 120 672 120 576 120C480 120 384 120 288 120C192 120 96 120 48 120H0V60Z" fill="var(--bg-primary)"/>
+        </svg>
+    </div>
+</section>
+
+<!-- ═══════════════ FEATURES SECTION ═══════════════ -->
+<section class="features" id="features">
+    <div class="container">
+        <div class="section-header fade-in">
+            <span class="section-tag">Fitur Unggulan</span>
+            <h2 class="section-title">Mengapa <span class="gradient-text">HerbalScan</span>?</h2>
+            <p class="section-subtitle">Teknologi canggih untuk mengenali tanaman herbal dengan mudah dan cepat.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card glass-card fade-in" id="feature-fast">
+                <div class="feature-icon-wrap">
+                    <span class="feature-icon">⚡</span>
+                </div>
+                <h3 class="feature-title">Scan Cepat</h3>
+                <p class="feature-desc">Hasil identifikasi dalam hitungan detik. Cukup foto atau upload gambar daun.</p>
+            </div>
+            <div class="feature-card glass-card fade-in" id="feature-accurate">
+                <div class="feature-icon-wrap">
+                    <span class="feature-icon">🎯</span>
+                </div>
+                <h3 class="feature-title">Akurasi Tinggi</h3>
+                <p class="feature-desc">Model AI terlatih dengan ribuan data untuk memberikan hasil klasifikasi yang akurat.</p>
+            </div>
+            <div class="feature-card glass-card fade-in" id="feature-database">
+                <div class="feature-icon-wrap">
+                    <span class="feature-icon">📚</span>
+                </div>
+                <h3 class="feature-title">Database Lengkap</h3>
+                <p class="feature-desc">Informasi detail tentang khasiat, nama latin, dan cara penggunaan tanaman herbal.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+<section class="how-it-works" id="how-it-works">
+    <div class="container">
+        <div class="section-header fade-in">
+            <span class="section-tag">Cara Kerja</span>
+            <h2 class="section-title">Tiga Langkah <span class="gradient-text">Mudah</span></h2>
+            <p class="section-subtitle">Identifikasi daun herbal semudah 1-2-3.</p>
+        </div>
+        <div class="steps-timeline">
+            <div class="step-item fade-in" id="step-1">
+                <div class="step-number">1</div>
+                <div class="step-content glass-card">
+                    <div class="step-icon">📷</div>
+                    <h3>Upload atau Foto</h3>
+                    <p>Ambil foto daun menggunakan kamera atau upload gambar dari galeri perangkat Anda.</p>
+                </div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step-item fade-in" id="step-2">
+                <div class="step-number">2</div>
+                <div class="step-content glass-card">
+                    <div class="step-icon">🤖</div>
+                    <h3>Analisis AI</h3>
+                    <p>Model Machine Learning kami akan menganalisis gambar dan mengidentifikasi jenis daunnya.</p>
+                </div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step-item fade-in" id="step-3">
+                <div class="step-number">3</div>
+                <div class="step-content glass-card">
+                    <div class="step-icon">✅</div>
+                    <h3>Lihat Hasil</h3>
+                    <p>Dapatkan informasi lengkap: nama tanaman, khasiat, dan cara penggunaannya.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ STATS SECTION ═══════════════ -->
+<section class="stats-section" id="stats">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item glass-card fade-in" id="stat-plants">
+                <span class="stat-number" data-target="50">0</span>
+                <span class="stat-suffix">+</span>
+                <span class="stat-label">Jenis Tanaman</span>
+            </div>
+            <div class="stat-item glass-card fade-in" id="stat-accuracy">
+                <span class="stat-number" data-target="95">0</span>
+                <span class="stat-suffix">%</span>
+                <span class="stat-label">Akurasi AI</span>
+            </div>
+            <div class="stat-item glass-card fade-in" id="stat-users">
+                <span class="stat-number" data-target="1200">0</span>
+                <span class="stat-suffix">+</span>
+                <span class="stat-label">Pengguna</span>
+            </div>
+            <div class="stat-item glass-card fade-in" id="stat-scans">
+                <span class="stat-number" data-target="5000">0</span>
+                <span class="stat-suffix">+</span>
+                <span class="stat-label">Total Scan</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ CTA SECTION ═══════════════ -->
+<section class="cta-section" id="cta">
+    <div class="container">
+        <div class="cta-card glass-card fade-in">
+            <h2 class="cta-title">Siap Mengenali Tanaman Herbal?</h2>
+            <p class="cta-subtitle">Mulai scan daun pertamamu sekarang — gratis dan tanpa registrasi.</p>
+            <a href="{{ url_for('scan') }}" class="btn btn-primary btn-lg" id="cta-button">
+                <span class="btn-icon">🌿</span>
+                Mulai Scan Sekarang
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
